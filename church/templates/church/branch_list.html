@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branches Map and List - Free Grace Foundations International</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styling to enhance the visual appearance */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa; /* Light background */
+        }
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        h1 {
+            color: #444;
+
+        }
+        #map {
+            width: 100%;
+            height: 500px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .branch-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .branch-card {
+            background-color: #fff;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .branch-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .branch-card h3 {
+            color: #007bff;
+        }
+        .branch-card p {
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+        .branch-card .contact-info {
+            font-size: 0.9rem;
+            color: #333;
+        }
+        .branch-card .service-times {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 10px;
+        }
+        .branch-card .email {
+            font-size: 0.9rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        /* Media Query for mobile responsiveness */
+        @media (max-width: 768px) {
+            #map {
+                height: 300px; /* Adjust height for smaller screens */
+            }
+            .branch-list {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #backToTop:hover {
+            background-color: #0056b3;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    {% include 'nav.html' %}
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1><strong><i class="fas fa-map-marker-alt"></i> Our Branches</strong></h1>
+            <p>Explore our branches and find out how to get in touch with us or visit during service times.</p>
+        </div>
+
+        <hr>
+        
+        <!-- Map Section -->
+        <div id="map">
+            <!-- Folium map will be inserted here -->
+            {{ map|safe }}
+        </div>
+
+        <hr>
+        
+        <!-- Branch List Section -->
+        <div class="branch-list" data-aos="fade-up">
+            {% for branch in branches %}
+            <div class="branch-card" data-aos="zoom-in">
+                <h3><i class="fas fa-map-marker-alt"></i> {{ branch.name }}</h3>
+                <p><strong>Location:</strong> {{ branch.location }}</p>
+                <p class="contact-info">
+                    <strong>Phone:</strong> {{ branch.phone_number }}<br>
+                    <strong>Email:</strong> <a href="mailto:{{ branch.email }}" class="email">{{ branch.email }}</a><br>
+                    <strong>Address:</strong> {{ branch.address }}
+                </p>
+                <p class="service-times"><strong>Service Times:</strong> Every Sunday, Tuesday and Fridays</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="btn btn-primary" title="Go to top" style="display: none;">
+        <i class="fas fa-hand-point-up"></i> <!-- Font Awesome icon for the button -->
+    </button>
+
+    <!-- Footer Section -->
+    <footer class="text-center mt-5 py-4 bg-dark text-white">
+        <div class="container">
+            <div class="social-icons mb-3">
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <p> <i class="fas fa-phone"></i> Phone: 08027514337</p>
+            <p> <i class="fas fa-code"></i> Developed by ICT Department, Free Grace Foundations International. All rights reserved 2024.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        // Get the button
+        var backToTopButton = document.getElementById("backToTop");
+    
+        // Show the button when the user scrolls down 100 pixels
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+    
+        // Scroll to the top when the button is clicked
+        backToTopButton.onclick = function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Smooth scroll effect
+            });
+        };
+    </script> 
+
+    <!-- AOS JS and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,  // animation duration (1 second)
+            once: true       // only animate once per scroll
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies (Optional but good for responsiveness) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

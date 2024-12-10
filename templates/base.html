@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Home - Free Grace Foundations International </title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'church/styles.css' %}">
+    
+</head>
+<body>
+
+    {% include 'nav.html' %}
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="btn btn-primary" title="Go to top" style="display: none;">
+        <i class="fas fa-hand-point-up"></i> <!-- Font Awesome icon for the button -->
+    </button>
+
+    
+    <script>
+        
+    // Get the button
+    var backToTopButton = document.getElementById("backToTop");
+
+    // Show the button when the user scrolls down 100 pixels
+    window.onscroll = function() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            backToTopButton.style.display = "block";
+        } else {
+            backToTopButton.style.display = "none";
+        }
+    };
+
+    // Scroll to the top when the button is clicked
+    backToTopButton.onclick = function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Smooth scroll effect
+        });
+    };
+
+
+        
+    // function removeAnnouncement(id) {
+    //     var announcement = document.getElementById('announcement-' + id);
+    //     announcement.style.transition = "opacity 0.5s ease";
+    //     announcement.style.opacity = "0";
+
+    //     setTimeout(function() {
+    //         announcement.remove();
+    //     }, 500); // Delay to allow for fade-out animation
+    // }
+
+        // Remove announcement functionality
+    function removeAnnouncement(button) {
+        const announcementItem = button.parentElement;
+        announcementItem.style.opacity = '0';  // Fade out effect
+        setTimeout(() => {
+            announcementItem.style.display = 'none';
+        }, 500); // Matches the CSS transition time
+    }
+
+    // Icon integration in announcements
+    document.querySelectorAll('.announcement-item button').forEach(button => {
+        button.innerHTML = '<i class="fas fa-times"></i> ' + button.innerHTML;
+    });
+
+
+    </script>
+
+    <!-- Footer Section -->
+    <footer class="text-center mt-5 py-4 bg-dark text-white">
+        <div class="container">
+            <div class="social-icons mb-3">
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <p> <i class="fas fa-phone"></i> Phone: 08027514337</p>
+            <p> <i class="fas fa-code"></i> Developed by ICT Department, Free Grace Foundations International. All rights reserved 2024.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+     <!-- AOS JS and Bootstrap JS -->
+     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+     <script>
+         AOS.init({
+             duration: 1000,
+             once: true
+         });
+     </script>
+</body>
+</html>

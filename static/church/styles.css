@@ -1,0 +1,175 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f9fa; /* Light background */
+}
+
+/* Fade-up animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-up {
+    opacity: 0;
+    animation: fadeUp 1s ease-out forwards;
+}
+
+/* Bold text */
+.bold-text {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Styling for buttons and hover effects */
+button {
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* Slideshow (Carousel) */
+/* Ensuring carousel images are responsive */
+.carousel-item img {
+    max-height: 600px; /* Limit image height */
+    object-fit: cover; /* Make sure images cover the carousel space without stretching */
+  }
+  
+  /* Custom carousel caption styles for better readability */
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.6); /* Transparent black background for text readability */
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .carousel-caption h5 {
+    font-size: 1.8rem;
+  }
+  
+  .carousel-caption p {
+    font-size: 1.2rem;
+  }
+  
+  /* Adjust text size for smaller devices */
+  @media (max-width: 576px) {
+    .carousel-caption h5 {
+      font-size: 1.5rem;
+    }
+    
+    .carousel-caption p {
+      font-size: 1rem;
+    }
+  }
+/* Overseer Section */
+#overseer {
+    background-color: #ffffff;
+    padding: 60px 0;
+}
+
+.overseer-name {
+    color: #424441;
+    font-size: 2rem;
+}
+
+img.rounded-circle {
+    border: 5px solid #fff;
+    max-width: 250px;
+}
+
+@media (max-width: 768px) {
+    .overseer-name {
+        font-size: 1.5rem;
+    }
+    img.rounded-circle {
+        max-width: 200px;
+    }
+}
+
+/* Announcement Section */
+/* Announcement Section */
+.announcements {
+    background-color: #f4f4f4;
+    padding: 40px 20px;
+}
+
+.announcement-item {
+    background-color: #6cace4; /* Soft pastel blue */
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.announcement-item:hover {
+    background-color: #558bbd; /* Slightly deeper blue on hover */
+}
+
+.announcement-item button {
+    background-color: white;
+    color: #6cace4; /* Match button text with the announcement color */
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.announcement-item button:hover {
+    background-color: #558bbd; /* Button also changes color on hover */
+    color: white; /* White text on hover */
+}
+
+/* Back to top button */
+#backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: none;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#backToTop:hover {
+    background-color: #0056b3;
+}
+
+/* Bouncing Animation for Logo */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0); /* Start and end at the same position */
+    }
+    40% {
+        transform: translateY(-20px); /* Move up */
+    }
+    60% {
+        transform: translateY(-10px); /* Slight bounce down */
+    }
+}
+
+.bouncing-logo {
+    animation: bounce 2s infinite; /* Apply bounce animation with infinite loop */
+}
+

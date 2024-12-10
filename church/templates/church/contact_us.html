@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Free Grace Foundations International </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+            
+        }
+        .contact-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group i {
+            position: absolute;
+            margin-left: -30px;
+            margin-top: 12px;
+            color: #007bff;
+        }
+        .form-control {
+            padding-left: 40px;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        .contact-icons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .contact-icons i {
+            font-size: 2rem;
+            color: #007bff;
+            margin: 0 15px;
+        }
+        .contact-text {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    {% include 'nav.html' %}
+
+    <div class="contact-container">
+        <h2> <i class="fas fa-envelope"></i> Contact Us</h2>
+        
+        <p class="contact-text">We'd love to hear from you! Feel free to reach out with any questions, suggestions, or concerns you may have. We're here to help and provide the support you need.</p>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+        
+            <div class="form-group position-relative">
+                <label for="name">Name *</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="text-danger">{{ form.name.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group position-relative">
+                <label for="email">Email *</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="text-danger">{{ form.email.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group position-relative">
+                <label for="message">Message *</label>
+                {{ form.message }}
+                {% if form.message.errors %}
+                    <div class="text-danger">{{ form.message.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group position-relative">
+                <label for="captcha">CAPTCHA *</label>
+                {{ form.captcha }}
+                {% if form.captcha.errors %}
+                    <div class="text-danger">{{ form.captcha.errors.0 }}</div>
+                {% endif %}
+            </div>
+        
+            <div class="text-center">
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </div>
+        
+            {% if success %}
+                <div class="alert alert-success mt-3">{{ success }}</div>
+            {% endif %}
+        </form>
+        
+
+        <div class="contact-icons mt-4">
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="text-center mt-5 py-4 bg-dark text-white">
+        <div class="container">
+            <div class="social-icons mb-3">
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <p> <i class="fas fa-phone"></i> Phone: 08027514337</p>
+            <p> <i class="fas fa-code"></i> Developed by ICT Department, Free Grace Foundations International. All rights reserved 2024.</p>
+        </div>
+    </footer>
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

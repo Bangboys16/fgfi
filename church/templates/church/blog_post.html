@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - Free Grace Foundations International</title>
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- AOS Library CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* Custom styling to enhance the visual appearance */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Make the card image maintain a consistent aspect ratio (16:9) */
+        .card-img-top {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            aspect-ratio: 16/9; /* Enforce 16:9 aspect ratio */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Adjust the layout for smaller screens */
+        @media (max-width: 768px) {
+            .card-img-top {
+                aspect-ratio: 4/3; /* Change to 4:3 for smaller screens */
+            }
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #backToTop:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    {% include 'nav.html' %}
+
+    <div class="container mt-4">
+        <h2 class="text-center" data-aos="fade-down"> <i class="fas fa-book"></i> Church Blog</h2>
+        <hr>
+
+        <!-- Display each blog post -->
+        <div class="row">
+            {% for post in page_obj %}
+            <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="card h-100">
+                    {% if post.poster %}
+                        <img src="{{ post.poster.url }}" class="card-img-top" alt="Blog Image">
+                        {% if blog_post_today_count > 0 %}
+                            <span class="badge">{{ blog_post_today_count }}</span>
+                        {% endif%}
+                    {% else %}
+                        <img src="{% static 'church/slide2.jpg' %}" class="card-img-top" alt="Default Blog Image">
+                        {% if blog_post_today_count > 0 %}
+                            <span class="badge">{{ blog_post_today_count }}</span>
+                        {% endif%}
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>{{ post.title|title }}</strong></h5>
+                        <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+                        <p class="text-muted">By {{ post.author|title }} on {{ post.date_posted }}</p>
+                        <a href="{% url 'post-detail' post.slug %}" class="btn btn-primary mt-auto">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No blog posts found.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination controls -->
+        <nav aria-label="Page navigation example" data-aos="fade-up">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:-2 and num < page_obj.number|add:2 %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="btn btn-primary" title="Go to top">
+        <i class="fas fa-hand-point-up"></i>
+    </button>
+
+    <!-- Footer Section -->
+    <footer class="text-center mt-5 py-4 bg-dark text-white">
+        <div class="container">
+            <div class="social-icons mb-3">
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <p> <i class="fas fa-phone"></i> Phone: 08027514337</p>
+            <p> <i class="fas fa-code"></i> Developed by ICT Department, Free Grace Foundations International. All rights reserved 2024.</p>
+        </div>
+    </footer>
+
+    <!-- AOS Library JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 1000, // Animation duration (1 second)
+            once: true // Ensure animations happen only once
+        });
+    </script>
+
+    <!-- Back to Top functionality -->
+    <script>
+        var backToTopButton = document.getElementById("backToTop");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+
+        backToTopButton.onclick = function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

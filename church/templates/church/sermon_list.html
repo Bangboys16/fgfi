@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sermons - Free Grace Foundations International</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            /* background-color: #f8f9fa; */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Overlay with centered text */
+        .header-overlay {
+            position: relative;
+            height: 500px;
+            background-image: url("{% static 'church/justslide.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-overlay::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+        }
+
+        .overlay-content {
+            position: relative;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .overlay-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .overlay-content p {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
+        /* Container styling */
+        .container {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .bible-text {
+            font-style: italic;
+            color: #343a40;
+            font-size: 1.2rem;
+        }
+
+        /* Sermon Cards */
+        .sermon-card .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .sermon-card .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-view-details {
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-view-details:hover {
+            background-color: #4a7db4;
+            transform: scale(1.05);
+        }
+
+        /* Pagination */
+        .pagination {
+            justify-content: center;
+        }
+
+        /* Back to Top Button */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #backToTop:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+
+    <!-- Header with Overlay -->
+    <div class="header-overlay">
+        <div class="overlay-content" data-aos="fade-down" data-aos-duration="1000">
+            <h1><i class="fas fa-microphone"></i> Sermons</h1>
+            <p>Explore teachings and messages from our ministers</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="text-center mb-4"><i class="fas fa-bible"></i> Bible Verse</h2>
+        <p class="bible-text text-center"><i class="fas fa-bible"></i> "All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness." – <strong>2 Timothy 3:16 (ESV)</strong></p>
+        
+        <!-- Sermons Section -->
+        <div class="row">
+            {% for sermon in page_obj %}
+            <div class="col-md-4 sermon-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card h-100">
+                    {% if sermon.poster %}
+                            <img src="{{ sermon.poster.url }}" class="card-img-top" alt="{{ related_sermon.title }}">
+                            {% if sermon_today_count > 0 %}
+                                <span class="badge">{{ sermon_today_count }}</span>
+                            {% endif%}</a>
+                        {% else %}
+                            <img src="{% static 'church/slide.jpg' %}" class="card-img-top" alt="Default Image">
+                            {% if sermon_today_count > 0 %}
+                                <span class="badge">{{ sermon_today_count }}</span>
+                            {% endif%}</a>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sermon.title|title }}</h5>
+                        <p><strong>Preacher:</strong> {{ sermon.preacher|title }}</p>
+                        <p><strong>Date:</strong> {{ sermon.date_preached }}</p>
+                        <p>{{ sermon.description|truncatewords:15 }}</p>
+                        <a href="{% url 'sermon-detail' sermon.slug %}" class="btn btn-view-details">View Details</a>
+                    </div>
+                    <div class="card-footer">
+                        {% if sermon.pdf_file %}
+                            <a href="{{ sermon.pdf_file.url }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-pdf"></i> PDF</a>
+                        {% endif %}
+                        {% if sermon.audio_file %}
+                            <a href="{{ sermon.audio_file.url }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-headphones"></i> Audio</a>
+                        {% endif %}
+                        {% if sermon.video_file %}
+                            <a href="{{ sermon.video_file.url }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-video"></i> Video</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        
+
+        <!-- Pagination Controls -->
+        <div class="d-flex justify-content-center mt-4">
+            <nav aria-label="Sermon page navigation">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="btn" title="Go to top">
+        <i class="fas fa-hand-point-up"></i>
+    </button>
+
+
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.getElementById("backToTop");
+        window.onscroll = function() {
+            backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+        };
+        backToTopButton.onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+
+    
+
+    <!-- AOS Library JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

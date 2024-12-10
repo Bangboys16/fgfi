@@ -1,0 +1,125 @@
+{% load static %}
+{% block content %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#" data-aos="fade-right" data-aos-delay="800">
+        <img src="{% static 'church/logo.jpg' %}" class="rounded-circle bouncing-logo" width="60" alt="church logo">
+        <span class="ml-2 h5 mb-0">
+            <strong>Free Grace Foundations Int'l</strong> 
+        </span>
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        <span id="toggler-text" class="ml-2" style="font-size: 0.85rem; padding: 0;">Menu</span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <!-- Add AOS attributes for animation -->
+            <li class="nav-item dropdown" data-aos="fade-right" data-aos-delay="100">
+                <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-church"></i> Home</a>
+            </li>
+            <li class="nav-item dropdown" data-aos="fade-right" data-aos-delay="200">
+                <a class="nav-link" href="{% url 'service' %}"><i class="fas fa-hands"></i> Services</a>
+            </li>
+            <li class="nav-item dropdown" data-aos="fade-right" data-aos-delay="300">
+                <a class="nav-link" href="{% url 'blogpost' %}"><i class="fas fa-book"></i> 
+                    BlogPost
+                    {% if blog_post_today_count > 0 %}
+                        <span class="badge">{{ blog_post_today_count }}</span>
+                    {% endif%}</a>
+                </a>
+            </li>
+            <li class="nav-item dropdown" data-aos="fade-right" data-aos-delay="400">
+                <a class="nav-link" href="{% url 'about' %}"><i class="fas fa-hands-helping"></i> About us</a>
+            </li>
+            <li class="nav-item dropdown" data-aos="fade-right" data-aos-delay="500">
+                <a class="nav-link" href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact us</a>
+            </li>
+            <li class="nav-item dropdown" data-aos="fade-right" data-aos-delay="600">
+                <a class="nav-link" href="{% url 'branches' %}"><i class="fas fa-map-marker-alt"></i> Branches</a>
+            </li>
+            <li class="nav-item dropdown" data-aos="fade-right" data-aos-delay="700">
+                <a class="nav-link" href="{% url 'donate' %}"><i class="fas fa-money-check-alt"></i> Donation</a>
+            </li>
+            <li class="nav-item dropdown" data-aos="fade-right" data-aos-delay="800">
+                <a class="nav-link" href="{% url 'sermons' %}"><i class="fas fa-microphone"></i> 
+                    Sermons
+                    {% if sermon_today_count > 0 %}
+                        <span class="badge">{{ sermon_today_count }}</span>
+                    {% endif%}</a>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Script for Toggler Text -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navItems = document.querySelectorAll('.navbar-nav .nav-item');
+
+        navbarToggler.addEventListener('click', function () {
+            const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+
+            if (!isExpanded) {
+                // Delay the fade-in for each item
+                navItems.forEach((item, index) => {
+                    item.classList.remove('show'); // Reset animation
+                    setTimeout(() => {
+                        item.classList.add('fade', 'show');
+                    }, index * 100); // Add a delay for each item
+                });
+            } else {
+                // Remove animations when menu is closing
+                navItems.forEach(item => {
+                    item.classList.remove('fade', 'show');
+                });
+            }
+        });
+    });
+</script>
+
+
+<style>
+    .badge {
+        background-color: yellowgreen;
+        color: white;
+        border-radius: 50%;
+        padding: 5px 10px;
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .nav-item.fade {
+        opacity: 0;
+    }
+
+    .nav-item.fade.show {
+        animation: fadeUp 0.5s ease-in-out forwards;
+    }
+
+</style>
+
+<!-- Include AOS Library -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800, // Animation duration in ms
+        once: false,   // Re-animate when toggled again
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Free Grace Foundations International</title>
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Styling the service cards */
+        .service-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            font-size: 50px;
+            color: #007bff;
+        }
+
+        .service-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .service-description {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .service-meta {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #333;
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #backToTop:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar Include -->
+    {% include 'nav.html' %}
+
+    <!-- Services Section -->
+    <section class="container my-5">
+        <h2 class="text-center mb-4"> <i class="fas fa-hands"></i> Our Services</h2>
+
+        <hr>
+        
+        <!-- Services Grid -->
+        <div class="row">
+            {% for service in services %}
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="service-card text-center">
+                    <i class="fas fa-church service-icon"></i> <!-- Default Font Awesome icon for service -->
+
+                    <!-- Service Title -->
+                    <h3 class="service-title">{{ service.title }}</h3>
+
+                    <!-- Service Type Badge -->
+                    <span class="badge badge-info">{{ service.get_service_type_display }}</span>
+
+                    <!-- Service Time and Day -->
+                    <p class="service-meta">
+                        <strong>Day:</strong> {{ service.day }}<br>
+                        <strong>Time:</strong> {{ service.time|date:"g:i A" }}<br>
+                        <strong>Location:</strong> {{ service.location }}
+                    </p>
+
+                    <!-- Service Description -->
+                    <p class="service-description">{{ service.description|truncatewords:20 }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">No services available at this time.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Bible Portion Section -->
+<section class="container my-5 text-center" data-aos="fade-up">
+    <div class="bible-section">
+        <i class="fas fa-bible fa-3x text-primary mb-3"></i> <!-- Bible icon using Font Awesome -->
+        <h4 class="mb-2">"For where two or three gather in my name, there am I with them." - Matthew 18:20</h4>
+        <p class="text-muted">Let the Word of God guide you in every service.</p>
+    </div>
+</section>
+
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="btn btn-primary" title="Go to top" style="display: none;">
+        <i class="fas fa-hand-point-up"></i>
+    </button>
+
+    <!-- Footer Section -->
+    <footer class="text-center mt-5 py-4 bg-dark text-white" >
+        <div class="container">
+            <div class="social-icons mb-3">
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <p>  <i class="fas fa-phone"></i> Phone: 08027514337</p>
+            <p> <i class="fas fa-code"></i> Developed by ICT Department, Free Grace Foundations International. All rights reserved 2024.</p>
+        </div>
+    </footer>
+
+    <script>
+        var backToTopButton = document.getElementById("backToTop");
+    
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+    
+        backToTopButton.onclick = function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+    </script>
+
+     <!-- AOS Library JS -->
+     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+     <script>
+         AOS.init({
+             duration: 1000,  // 1 second animation duration
+             once: true      // animation happens only once on scroll
+         });
+     </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

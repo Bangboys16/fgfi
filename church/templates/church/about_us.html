@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Free Grace Foundations International</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Hero Section Styles */
+        #about-section {
+            position: relative;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #backToTop:hover {
+            background-color: #0056b3;
+        }
+
+
+        /* General Overseer Image with Overlay */
+        #general-overseer-img {
+            width: 100%;
+            height: auto;
+            max-height: 800px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent overlay */
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .overlay-text h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .overlay-text p {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        /* About Section */
+        #about-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        #about-section .icon-box {
+            font-size: 30px;
+            color: #007bff;
+        }
+
+        #about-section p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Section Spacing */
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+
+        /* Icon Styling */
+        .icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        /* Media Queries for Mobile Responsiveness */
+        @media (max-width: 768px) {
+            #general-overseer-img {
+                max-height: 300px;
+            }
+
+            .overlay-text h1 {
+                font-size: 32px;
+            }
+
+            .overlay-text p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'nav.html' %}
+
+    <!-- About Us Section with General Overseer Image and Overlay -->
+    <section id="about-section">
+        <div style="position: relative;" data-aos="fade-up">
+            <img src="{% static 'church/overseer.jpg' %}" alt="General Overseer" id="general-overseer-img" class="img-fluid">
+            <div class="overlay"></div>
+            <div class="overlay-text">
+                <h1> <i class="fas fa-user-circle"></i> Our General Supritendent</h1>
+                
+            </div>
+        </div>
+
+        <!-- Church History Section -->
+        <div class="container mt-5" data-aos="fade-up">
+            <h2> <i class="fas fa-hands-helping"></i> About Free Grace Foundations Int.</h2>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-4 text-center" data-aos="fade-up">
+                    <i class="fas fa-history icon"></i>
+                    <h3 class="section-title">Our History</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In auctor, enim vitae luctus congue, risus tortor hendrerit mi, et dapibus lorem risus non lacus. Lorem ipsum dolor sit amet.</p>
+                </div>
+
+                <div class="col-md-4 text-center" data-aos="fade-up">
+                    <i class="fas fa-bullseye icon"></i>
+                    <h3 class="section-title">Mission Statement</h3>
+                    <p>In partnership with the Holy Spirit, bringing the poor and needy into the programme of God!.</p>
+                </div>
+
+                <div class="col-md-4 text-center" data-aos="fade-up">
+                    <i class="fas fa-hands-helping icon"></i>
+                    <h3 class="section-title">Our 6-Point Vision Statement</h3>
+                    <ul>
+                        <li>Rural Evangelism</li>
+                        <li>Youth Rehabilitation</li>
+                        <li>Leadership Training</li>
+                        <li>Special Missions</li>
+                        <li>Pastoral Counseling</li>
+                        <li>Intercession & Deliverance</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="btn btn-primary" title="Go to top" style="display: none;">
+        <i class="fas fa-hand-point-up"></i> <!-- Font Awesome icon for the button -->
+    </button>
+
+    <!-- Footer Section -->
+    <footer class="text-center mt-5 py-4 bg-dark text-white" data-aos="fade-up">
+        <div class="container">
+            <div class="social-icons mb-3">
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-white mx-2" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <p> <i class="fas fa-phone"></i> Phone: 08027514337</p>
+            <p> <i class="fas fa-code"></i> Developed by ICT Department, Free Grace Foundations International. All rights reserved 2024.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        // Get the button
+        var backToTopButton = document.getElementById("backToTop");
+    
+        // Show the button when the user scrolls down 100 pixels
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+    
+        // Scroll to the top when the button is clicked
+        backToTopButton.onclick = function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Smooth scroll effect
+            });
+        };
+    </script> 
+    
+    <!-- AOS JS and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
