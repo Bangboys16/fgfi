@@ -83,9 +83,6 @@
                 <div class="card h-100">
                     {% if post.poster %}
                         <img src="{{ post.poster.url }}" class="card-img-top" alt="Blog Image">
-                        {% if blog_post_today_count > 0 %}
-                            <span class="badge">{{ blog_post_today_count }}</span>
-                        {% endif%}
                     {% else %}
                         <img src="{% static 'church/slide2.jpg' %}" class="card-img-top" alt="Default Blog Image">
                         {% if blog_post_today_count > 0 %}
